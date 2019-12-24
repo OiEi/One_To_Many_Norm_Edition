@@ -10,7 +10,7 @@ namespace EmployeeServiceASPNETWebApi.Controllers
 {
     public class EmployeeController : ApiController
     {
-        
+
         //Создание тестовых таблиц
         [Route("api/CreateData")]
         public void Post()
@@ -23,20 +23,42 @@ namespace EmployeeServiceASPNETWebApi.Controllers
                 db.Employees.AddRange(new List<Employee> { empl1, empl2, empl3 });
                 db.SaveChanges();
 
-                Company c1 = new Company { CompanyId = 35 };
+                Company c1 = new Company { Company_Id = 35 };
                 c1.Employees.Add(empl1);
                 c1.Employees.Add(empl2);
                 db.Companies.Add(c1);
                 db.SaveChanges();
 
-                Company c2 = new Company { CompanyId = 1 };
+                Company c2 = new Company { Company_Id = 29 };
                 c2.Employees.Add(empl3);
                 db.Companies.Add(c2);
                 db.SaveChanges();
-                
+
 
             }
-
         }
+
+
+
+        public IEnumerable<Employee> Get()
+        {
+            using (EmployeeContext db = new EmployeeContext())
+            {
+                return db.Employees.ToList();
+            }
+        }
+
+
+        [Route("api/empl_from_company/{company_id}")]
+        public IEnumerable<Employee> Get(int company_id)
+        {
+            using (EmployeeContext db = new EmployeeContext())
+            {
+                var employees =  db.Employees.Where(employee => employee.Companies.Select(company => company.Company_Id).Contains(company_id)).ToList();
+                return employees;
+                
+            }
+        }
+
     }
 }

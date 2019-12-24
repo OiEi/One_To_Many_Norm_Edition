@@ -18,5 +18,6 @@ namespace EmployeeDataAcces
         /*public DbSet<EmployeePasport> Pasports { get; set; }*/
 
 
+
     }
 }

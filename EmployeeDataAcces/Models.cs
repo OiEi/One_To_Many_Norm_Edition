@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EmployeeDataAcces
 {
+    
+    [Serializable]
     public class Employee
     {
         public int Id { get; set; }
@@ -16,24 +19,17 @@ namespace EmployeeDataAcces
 
         public string Phone { get; set; }
 
-        
-        public virtual ICollection<Company> Companies { get; set; }
+        public virtual ICollection<Company> Companies { get; set; } = new List<Company>();
 
-        public Employee()
-        {
-            Companies = new List<Company>();
-        }
     }
+    [Serializable]
     public class Company
     {
         public int Id { get; set; }
-        public int CompanyId { get; set; }
+        public int Company_Id { get; set; }
 
-        public virtual ICollection<Employee> Employees { get; set; }
-        public Company()
-        {
-            Employees = new List<Employee>();
-        }
+        
+        public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
     }
 
 
@@ -41,19 +37,19 @@ namespace EmployeeDataAcces
 
 
 
-/*    public class EmployeePasport
-    {
-        [Key]
-        [ForeignKey("Employee")]
-        public int Id { get; set; }
-        public string Type { get; set; }
+    /*    public class EmployeePasport
+        {
+            [Key]
+            [ForeignKey("Employee")]
+            public int Id { get; set; }
+            public string Type { get; set; }
 
-        public string Number { get; set; }
-        
-
+            public string Number { get; set; }
 
 
-    }*/
+
+
+        }*/
 
 
 
